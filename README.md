@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="./public/favicon-96x96.png" >
+</p>
+<p align="center"><b>달리기 속도가 궁금해!</b></p>
+
 | label | value |
 | ----- | ----- |
 | url | https://hansanghyeon.github.io/runspeed |
