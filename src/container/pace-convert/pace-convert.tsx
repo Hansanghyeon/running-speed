@@ -1,4 +1,4 @@
-import { pipe, flow } from 'fp-ts/function'
+import { flow } from 'fp-ts/function'
 import { PaceSpeed, usePaceSpeedAtom } from ".";
 import { PaceForm } from "./partials/pace-form/pace-form";
 import { RESET } from 'jotai/utils';
