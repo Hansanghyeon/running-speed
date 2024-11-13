@@ -79,7 +79,7 @@ function App() {
       </div>
       <div className="lg:col-span-2">
       </div>
-      <div>
+      <div className='[&>*]:h-full'>
         <DistanceTime
           onSubmit={(payload) => calculate({
             hours: payload.시간,
@@ -96,7 +96,7 @@ function App() {
           }}
         />
       </div>
-      <div>
+      <div className='[&>*]:h-full'>
         <PaceSpeed />
       </div>
     </div>
