@@ -1,26 +1,26 @@
-import React from 'react'
-import { flow } from 'fp-ts/function'
-import { Button } from './components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card'
-import { Input } from './components/ui/input'
-import { Label } from './components/ui/label'
+import {DistanceTime } from './distance-time'
+import { PaceSpeed, usePaceSpeedAtom } from './pace-speed'
 
-function App() {
-  const [distance, setDistance] = React.useState('0')
-  const [hours, setHours] = React.useState('0')
-  const [minutes, setMinutes] = React.useState('0')
-  const [seconds, setSeconds] = React.useState('0')
-  const [pace, setPace] = React.useState({ value1: '0', value2: '0' })
-  const [speed, setSpeed] = React.useState('0')
-  const [acceleration, setAcceleration] = React.useState('0')
 
-  const calculate = () => {
-    const totalTimeInHours =
-      Number(hours) +
+function calculate({ hours, minutes, seconds, distance }: {
+  hours: string
+  minutes: string
+  seconds: string
+  distance: string
+}) {
+  return function ({ setSpeed, setPace, setAcceleration }: {
+    setSpeed: (value: string) => void
+    setPace: (value: { value1: string; value2: string }) => void
+    setAcceleration: (value: string) => void
+  }) {
+    const totalTimeInHours = Number(hours) +
       Number(minutes) / 60 +
       Number(seconds) / 3600
 
+    console.log('totalTimeInHours', totalTimeInHours)
     const distanceNum = Number(distance)
+    console.log('distanceNum', distanceNum)
 
     if (totalTimeInHours && distanceNum) {
       // Calculate speed (km/h)
@@ -39,28 +39,28 @@ function App() {
       setAcceleration(accelerationValue.toFixed(2))
     }
   }
+}
 
-  function formatingTextToNumber(v: string) {
-    const _value = v
-      .replaceAll(/[^0-9]/g, '')
-      .replace(/^(0+)(?=\d{2})/, '')
-    return _value
-  }
+function App() {
+
+  const set = usePaceSpeedAtom.set()
 
   const reset = () => {
-    setDistance('0')
-    setHours('0')
-    setMinutes('0')
-    setSeconds('0')
-    setPace({ value1: '0', value2: '0' })
-    setSpeed('0')
-    setAcceleration('0')
+    set({ pace: { value1: '0', value2: '0' }, speed: '0', acceleration: '0' })
   }
 
-  //
+  const setSpeed = (s: string) => {
+    set(pre => ({ ...pre, speed: s }))
+  }
+  const setPace = (p: { value1: string; value2: string }) => {
+    set(pre => ({ ...pre, pace: p }))
+  }
+  const setAcceleration = (a: string) => {
+    set(pre => ({ ...pre, acceleration: a }))
+  }
 
   return (
-    <div className="container mx-auto max-w-[800px] grid gap-4 grid-cols-2 gap-4 mt-[120px]">
+    <div className="container mx-auto max-w-[800px] grid gap-4 grid-cols-2 mt-[120px]">
       <div className="col-span-2">
         <Card className="">
           <CardHeader>
@@ -77,86 +77,27 @@ function App() {
           </CardContent>
         </Card>
       </div>
-      <div>
-        <Card className="h-full">
-          <CardHeader>
-            <CardTitle>
-              거리, 시간, 페이스
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <span>달린 거리</span>
-                <Input
-                  type="text"
-                  value={distance}
-                  onChange={flow((e) => e.target.value, formatingTextToNumber, setDistance)}
-                  className="w-24"
-                />
-                km
-              </div>
-
-              <div>
-                <div className="flex items-center gap-2 mt-2">
-                  <span>소요시간:</span>
-                  <Input
-                    type="text"
-                    value={hours}
-                    onChange={flow((e) => e.target.value, formatingTextToNumber, setHours)}
-                    className="w-24"
-                  />
-                  <span>시간</span>
-
-                  <Input
-                    type="text"
-                    value={minutes}
-                    onChange={flow((e) => e.target.value, formatingTextToNumber, setMinutes)}
-                    className="w-24"
-                  />
-                  <span>분</span>
-                </div>
-              </div>
-
-              <div className="flex justify-center gap-4">
-                <Button onClick={calculate}>산출하기</Button>
-                <Button variant="outline" onClick={reset}>다시하기</Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="col-span-2">
       </div>
       <div>
-        <Card className="flex-1 h-full">
-          <CardHeader>
-            <CardTitle>
-              출력
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Label>페이스(km):</Label>
-                <Input value={pace.value1} readOnly className="w-20" />
-                <span>:</span>
-                <Input value={pace.value2} readOnly className="w-20" />
-                <span>/km</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Label>시속(km):</Label>
-                <Input value={speed} readOnly className="w-32" />
-                <span>km/h</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Label>초속(m):</Label>
-                <Input value={acceleration} readOnly className="w-32" />
-                <span>m/s</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <DistanceTime
+          onSubmit={(payload) => calculate({
+            hours: payload.시간,
+            minutes: payload.분,
+            seconds: payload.초,
+            distance: payload.거리
+          })({
+            setSpeed,
+            setPace,
+            setAcceleration
+          })}
+          onReset={() => {
+            reset()
+          }}
+        />
+      </div>
+      <div>
+        <PaceSpeed />
       </div>
     </div>
   )
