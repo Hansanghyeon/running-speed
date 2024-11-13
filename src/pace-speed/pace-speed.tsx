@@ -1,7 +1,6 @@
-import { Form, FormControl, FormDescription, FormItem, FormLabel, FormMessage } from '~/components/ui/form'
+import { Form, FormDescription, FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Input } from '../components/ui/input'
-import { Label } from '../components/ui/label'
 import { usePaceSpeedAtom } from './pace-speed.store'
 import { useForm } from 'react-hook-form'
 
@@ -38,20 +37,20 @@ export function PaceSpeed() {
 
           <FormItem>
             <FormLabel>시속(km)</FormLabel>
-              <div className="grid grid-cols-[1fr,40px] gap-2 mt-2">
-                <Input readOnly value={speed} />
-                <div className='flex items-center justify-end'>km/h</div>
-              </div>
+            <div className="grid grid-cols-[1fr,40px] gap-2 mt-2">
+              <Input readOnly value={speed} />
+              <div className='flex items-center justify-end'>km/h</div>
+            </div>
             <FormDescription></FormDescription>
             <FormMessage />
           </FormItem>
 
           <FormItem>
             <FormLabel>초속(m)</FormLabel>
-              <div className="grid grid-cols-[1fr,40px] gap-2 mt-2">
-                <Input readOnly value={acceleration} />
-                <div className='flex items-center justify-end'>m/s</div>
-              </div>
+            <div className="grid grid-cols-[1fr,40px] gap-2 mt-2">
+              <Input readOnly value={acceleration} />
+              <div className='flex items-center justify-end'>m/s</div>
+            </div>
             <FormDescription></FormDescription>
             <FormMessage />
           </FormItem>
@@ -59,5 +58,5 @@ export function PaceSpeed() {
       </CardContent>
     </Card>
   </Form>
-  
+
 }
