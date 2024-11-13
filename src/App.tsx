@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card'
-import { DistanceToSpeedTabsTrigger } from './container/distance-to-speed/tabs-trigger'
-import { DistanceToSpeed } from '~/container/distance-to-speed'
+import { DistanceToSpeed, DistanceToSpeedTabsTrigger } from '~/container/distance-to-speed'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import { PaceConvert, PaceConvertTabsTrigger } from './container/pace-convert'
 
 function App() {
   return (
@@ -23,13 +23,13 @@ function App() {
         </Card>
       </div>
       <div>
-      <Tabs defaultValue="거리2스피드">
+      <Tabs defaultValue="페이스변환">
         <TabsList>
+          <TabsTrigger value="페이스변환"><PaceConvertTabsTrigger /></TabsTrigger>
           <TabsTrigger value="거리2스피드"><DistanceToSpeedTabsTrigger /></TabsTrigger>
-          <TabsTrigger value="스피드변환">스피드변환</TabsTrigger>
         </TabsList>
         <TabsContent value="거리2스피드"><DistanceToSpeed /></TabsContent>
-        <TabsContent value="스피드변환">스피드변환</TabsContent>
+        <TabsContent value="페이스변환"><PaceConvert /></TabsContent>
       </Tabs>
       </div>
     </div>

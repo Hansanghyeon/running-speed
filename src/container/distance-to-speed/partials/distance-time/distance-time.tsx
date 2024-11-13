@@ -33,7 +33,6 @@ export function DistanceTime({ onSubmit, onReset }: TDistanceTime) {
   })
 
   const _onSubmit = form.handleSubmit(payload => {
-    console.log(payload)
     onSubmit?.(payload)
   })
 

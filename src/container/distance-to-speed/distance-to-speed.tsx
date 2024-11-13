@@ -1,6 +1,5 @@
-import { DistanceTime } from './distance-time/distance-time'
-import { PaceSpeed, usePaceSpeedAtom } from './pace-speed'
-
+import { RESET } from 'jotai/utils'
+import { PaceSpeed, usePaceSpeedAtom, DistanceTime } from '.'
 
 function calculate({ hours, minutes, seconds, distance }: {
   hours: string
@@ -34,7 +33,7 @@ function calculate({ hours, minutes, seconds, distance }: {
       })
 
       // Calculate acceleration (m/s)
-      const accelerationValue = (speedValue * 1000) / (totalTimeInHours * 3600)
+      const accelerationValue = (speedValue * 1000) / 3600
       setAcceleration(accelerationValue.toFixed(2))
     }
   }
@@ -44,7 +43,7 @@ export function DistanceToSpeed() {
   const set = usePaceSpeedAtom.set()
 
   const reset = () => {
-    set({ pace: { value1: '0', value2: '0' }, speed: '0', acceleration: '0' })
+    set(RESET)
   }
 
   const setSpeed = (s: string) => {
