@@ -60,8 +60,8 @@ function App() {
   }
 
   return (
-    <div className="container mx-auto max-w-[800px] grid gap-4 grid-cols-2 mt-[120px]">
-      <div className="col-span-2">
+    <div className="container mx-auto px-[1em] max-w-[800px] grid gap-4 lg:grid-cols-2 my-[1em] lg:my-[120px]">
+      <div className="lg:col-span-2">
         <Card className="">
           <CardHeader>
             <CardTitle>
@@ -77,7 +77,7 @@ function App() {
           </CardContent>
         </Card>
       </div>
-      <div className="col-span-2">
+      <div className="lg:col-span-2">
       </div>
       <div>
         <DistanceTime
