@@ -1,6 +1,6 @@
 import { Form, FormDescription, FormItem, FormLabel, FormMessage } from '~/components/ui/form'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { Input } from '../components/ui/input'
+import { Input } from '~/components/ui/input'
 import { usePaceSpeedAtom } from './pace-speed.store'
 import { useForm } from 'react-hook-form'
 
